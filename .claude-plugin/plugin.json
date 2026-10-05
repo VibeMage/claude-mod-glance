@@ -1,0 +1,40 @@
+{
+  "name": "glance",
+  "version": "0.1.0",
+  "description": "A HUD under the Claude Code prompt: model, git, cost, context and rate-limit bars, tools, skills, MCP, agents and todos at a glance",
+  "author": { "name": "VibeMage", "url": "https://github.com/VibeMage" },
+  "homepage": "https://github.com/VibeMage/claude-mod-glance",
+  "repository": "https://github.com/VibeMage/claude-mod-glance",
+  "license": "MIT",
+  "keywords": ["mod", "hud", "statusline", "context", "rate-limit", "catppuccin"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "palette": {
+      "type": "string",
+      "title": "Palette",
+      "description": "auto: Cupertino (iOS system colours), light or dark with the Claude Code theme; catppuccin: latte or mocha the same way; or one Catppuccin flavor",
+      "default": "auto",
+      "options": ["auto", "catppuccin", "mocha", "macchiato", "frappe", "latte"]
+    },
+    "barWidth": {
+      "type": "number",
+      "title": "Bar width",
+      "description": "Cells in each of the ctx, 5h and 7d bars (4 to 30)",
+      "default": 10
+    },
+    "warnAt": {
+      "type": "number",
+      "title": "Warn at %",
+      "description": "A bar and its figure turn red at this percentage",
+      "default": 85
+    },
+    "showGit": { "type": "boolean", "title": "Show git", "description": "Branch, ahead/behind and changed files", "default": true },
+    "showCost": { "type": "boolean", "title": "Show cost", "description": "The session's cost as /cost totals it", "default": true },
+    "showDuration": { "type": "boolean", "title": "Show duration", "description": "How long the session has run", "default": true },
+    "showTools": { "type": "boolean", "title": "Show tools", "description": "Running tools and the session's tool counts", "default": true },
+    "showSkills": { "type": "boolean", "title": "Show skills and MCP", "description": "Skills loaded and MCP servers called", "default": true },
+    "showAgents": { "type": "boolean", "title": "Show agents", "description": "Running and finished subagents", "default": true },
+    "showTodos": { "type": "boolean", "title": "Show todos", "description": "Todo or task progress", "default": true },
+    "keepHint": { "type": "boolean", "title": "Keep the hint line", "description": "Draw Claude Code's own hint line (? for shortcuts, esc to interrupt) under the HUD", "default": true }
+  }
+}

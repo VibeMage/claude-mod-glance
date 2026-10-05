@@ -1,0 +1,17 @@
+{
+  "name": "claude-mod-glance",
+  "owner": { "name": "VibeMage" },
+  "metadata": {
+    "description": "glance: a HUD under the Claude Code prompt, written as a Claude Code mod",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "glance",
+      "source": "./",
+      "description": "Model, git, cost, context and rate-limit bars, tools, skills, MCP, agents and todos under your prompt. Cupertino and Catppuccin palettes.",
+      "category": "monitoring",
+      "tags": ["mod", "hud", "statusline", "context", "rate-limit", "skills", "mcp", "todos"]
+    }
+  ]
+}
