@@ -62,6 +62,8 @@ glance 只有一个 TypeScript 模块（`hooks/register.tsx`），由 Claude Cod
 - **保存**：数据只存在本次会话的 mod 状态里，不写任何文件，也不跨会话保存。
 - **发送**：不向任何地方发送数据：不发起网络请求，也不向 `git` 传任何数据，它的输入只有上面那组固定参数。
 
+隐私说明（Privacy）：[PRIVACY.md](PRIVACY.md)。
+
 ## 配置
 
 运行 `/plugin configure glance@claude-mod-glance`，或者打开 `/config` 找到 glance 的那几行。改完立即生效。

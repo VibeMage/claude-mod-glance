@@ -86,5 +86,6 @@
       "default": true
     }
   },
-  "icon": "./.claude-plugin/icon.png"
+  "icon": "./.claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://github.com/VibeMage/claude-mod-glance/blob/main/PRIVACY.md"
 }

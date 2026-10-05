@@ -62,6 +62,8 @@ glance is a single TypeScript module (`hooks/register.tsx`) that Claude Code run
 - **Keeps** its figures in the session's mod state only. It writes no files and stores nothing across sessions.
 - **Sends** nothing anywhere: it makes no network calls and passes no data to `git`, whose only input is the fixed argument list above.
 
+Privacy: [PRIVACY.md](PRIVACY.md).
+
 ## Configure
 
 Run `/plugin configure glance@claude-mod-glance`, or open `/config` and find the glance rows. Changes apply immediately.
