@@ -2,7 +2,7 @@
 
 # glance
 
-一个显示在 Claude Code 输入框下方的 HUD，用 [Claude Code mod](https://claude.com/blog/claude-code-mods) 写成。扫一眼就能知道：当前模型、git 分支、会话花了多少钱、上下文用了多少、5 小时和 7 天限额还剩多少，以及 Claude 此刻在跑什么。
+一个显示在 Claude Code 输入框下方的 HUD，用 [Claude Code mod](https://code.claude.com/docs/en/plugins/mods/overview) 写成。扫一眼就能知道：当前模型、git 分支、会话花了多少钱、上下文用了多少、5 小时和 7 天限额还剩多少，以及 Claude 此刻在跑什么。
 
 ```
 ❯ █
@@ -51,6 +51,16 @@ glance 可以和 claude-hud 这类 `statusLine` 同时使用。如果你打算�
 glance 加载时（新会话、`--resume`、或者在会话中途安装）会先读一遍会话记录，所以它加载之前用过的工具、MCP 服务器、skill 和待办也会算进去。
 
 费用就是 `/cost` 显示的数字，按 API 标价估算。如果你用的是 Pro 或 Max 订阅，这不是你实际被扣的钱。
+
+## glance 会运行和读取什么
+
+glance 只有一个 TypeScript 模块（`hooks/register.tsx`），由 Claude Code 在 mod 沙箱里运行。它没有任何依赖，不下载任何东西，也不建立网络连接。它读到的所有内容都只留在你的电脑上。
+
+- **运行**：在会话的工作目录里执行 `git status --porcelain=v2 --branch`，用来显示分支、领先/落后提交数和改动文件数。会话开始时、每轮结束后、以及每 30 秒各执行一次。
+- **读取**（通过 mod API）：会话的模型、上下文用量、限额窗口和费用（`$.session.usage()`）；会话记录（`$.session.messages()`，只读工具调用的名称和参数，用来统计工具、MCP 服务器、skill 和待办）；你的 Claude Code `theme` 设置（`$.settings.read()`，用来选浅色或深色配色）。
+- **监听**：实时观察工具调用和 skill 加载，但不修改、不拦截。
+- **保存**：数据只存在本次会话的 mod 状态里，不写任何文件，也不跨会话保存。
+- **发送**：不向任何地方发送数据。
 
 ## 配置
 

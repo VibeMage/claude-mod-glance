@@ -2,7 +2,7 @@ English | [简体中文](README.zh-CN.md)
 
 # glance
 
-A HUD under your Claude Code prompt, written as a [Claude Code mod](https://claude.com/blog/claude-code-mods). One look tells you the model, the branch, what the session has cost, how full the context is, where your 5-hour and 7-day limits stand, and what Claude is running right now.
+A HUD under your Claude Code prompt, written as a [Claude Code mod](https://code.claude.com/docs/en/plugins/mods/overview). One look tells you the model, the branch, what the session has cost, how full the context is, where your 5-hour and 7-day limits stand, and what Claude is running right now.
 
 ```
 ❯ █
@@ -51,6 +51,16 @@ glance runs alongside a `statusLine` such as claude-hud. If you are switching fr
 When glance loads (a new session, `--resume`, or installing it mid-session), it reads the transcript, so the tools, MCP servers, skills and todos used before it loaded are counted too.
 
 The cost is what `/cost` reports: an estimate at API list prices. On a Pro or Max subscription it is not what you are billed.
+
+## What glance runs and reads
+
+glance is a single TypeScript module (`hooks/register.tsx`) that Claude Code runs in its mod sandbox. It has no dependencies, downloads nothing and opens no network connections. Everything it reads stays on your machine.
+
+- **Runs** `git status --porcelain=v2 --branch` in the session's working directory, when the session starts, after each turn and every 30 seconds, for the branch, ahead/behind and changed-file count.
+- **Reads**, through the mod API: the session's model, context fill, rate-limit windows and cost (`$.session.usage()`), the session's transcript (`$.session.messages()`, only the names and inputs of tool calls, to count tools, MCP servers, skills and todos), and your Claude Code `theme` setting (`$.settings.read()`, to pick light or dark colours).
+- **Observes** tool calls and skill loads as they happen, without changing or blocking them.
+- **Keeps** its figures in the session's mod state only. It writes no files and stores nothing across sessions.
+- **Sends** nothing anywhere.
 
 ## Configure
 
