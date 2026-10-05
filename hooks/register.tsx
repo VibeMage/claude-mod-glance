@@ -76,7 +76,7 @@ const CUPERTINO: Record<'light' | 'dark', Palette> = {
   },
 }
 
-// Catppuccin palettes, https://catppuccin.com/palette
+// Catppuccin palettes, from the Catppuccin project's published palette
 const FLAVORS: Record<'mocha' | 'macchiato' | 'frappe' | 'latte', Palette> = {
   mocha: {
     rosewater: '#f5e0dc',
@@ -187,7 +187,7 @@ function withDefaults(a: Partial<HudActivity> | null | undefined): HudActivity {
   return { ...EMPTY_ACTIVITY, ...a, running: (a?.running ?? []).filter(r => r.kind !== undefined) }
 }
 
-function formatTokens(n: number): string {
+function shortCount(n: number): string {
   if (n >= 1_000_000) return `${+(n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1)}M`
   if (n >= 10_000) return `${Math.round(n / 1000)}k`
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`
@@ -592,7 +592,7 @@ export const register: Register = (on, options) => {
 
     // Context fill: one colour, the tokens beside it
     const percent = u?.tokens !== undefined ? (u.percent ?? Math.round((u.tokens / u.window) * 100)) : undefined
-    const tokensText = u?.tokens !== undefined ? `${formatTokens(u.tokens)}/${formatTokens(u.window)}` : undefined
+    const tokensText = u?.tokens !== undefined ? `${shortCount(u.tokens)}/${shortCount(u.window)}` : undefined
     const contextRow =
       percent !== undefined ? (
         meter('ctx', 'ctx', percent, tokensText)

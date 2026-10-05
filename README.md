@@ -56,11 +56,11 @@ The cost is what `/cost` reports: an estimate at API list prices. On a Pro or Ma
 
 glance is a single TypeScript module (`hooks/register.tsx`) that Claude Code runs in its mod sandbox. It has no dependencies, downloads nothing and opens no network connections. Everything it reads stays on your machine.
 
-- **Runs** `git status --porcelain=v2 --branch` in the session's working directory, when the session starts, after each turn and every 30 seconds, for the branch, ahead/behind and changed-file count.
+- **Runs** one program, `git`, as `git status --porcelain=v2 --branch` in the session's working directory, when the session starts, after each turn and every 30 seconds, for the branch, ahead/behind and changed-file count.
 - **Reads**, through the mod API: the session's model, context fill, rate-limit windows and cost (`$.session.usage()`), the session's transcript (`$.session.messages()`, only the names and inputs of tool calls, to count tools, MCP servers, skills and todos), and your Claude Code `theme` setting (`$.settings.read()`, to pick light or dark colours).
-- **Observes** tool calls and skill loads as they happen, without changing or blocking them.
+- **Observes** tool calls (`tool.call`) and skill loads (`skill.prompt`) as they happen, to note the tool's name and a short label and the skill's name. Every call and every skill prompt passes through unchanged; glance never blocks, rewrites or adds to them.
 - **Keeps** its figures in the session's mod state only. It writes no files and stores nothing across sessions.
-- **Sends** nothing anywhere.
+- **Sends** nothing anywhere: it makes no network calls and passes no data to `git`, whose only input is the fixed argument list above.
 
 ## Configure
 
